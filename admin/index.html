@@ -1,41 +1,283 @@
+
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#392344"><title>مدیریت سایت امیر</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#392344">
+<title>مدیریت سایت امیر</title>
+
 <style>
-*{box-sizing:border-box}body{margin:0;padding:24px;font-family:Tahoma,sans-serif;background:linear-gradient(135deg,#21172c,#392344,#292044);color:#fff;min-height:100vh}
-.wrap{max-width:760px;margin:35px auto;background:#ffffff12;border:1px solid #ffffff30;border-radius:22px;padding:24px;backdrop-filter:blur(15px)}h1{font-size:23px;color:#ffe0ef;margin-top:0}p{line-height:2;color:#eee}label{display:block;margin:16px 0 7px;color:#ffe0ef}input,textarea{width:100%;padding:12px;border-radius:10px;border:1px solid #ffffff40;background:#21172c;color:white;font:14px Tahoma}textarea{min-height:90px;resize:vertical}button{border:0;border-radius:11px;padding:12px 18px;margin:12px 5px 0 0;background:linear-gradient(90deg,#ffb5d8,#d6c1ff);color:#49284d;font-weight:bold;font: bold 14px Tahoma;cursor:pointer}.secondary{background:#ffffff20;color:white;border:1px solid #ffffff40}.hidden{display:none!important}.status{padding:12px;border-radius:10px;background:#ffffff12;margin-top:15px;line-height:1.8}.hint{font-size:12px;color:#ddd}.top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+*{box-sizing:border-box}
+body{
+ margin:0;padding:24px;
+ font-family:Tahoma,sans-serif;
+ background:linear-gradient(135deg,#21172c,#392344,#292044);
+ color:#fff;min-height:100vh
+}
+.wrap{
+ max-width:760px;margin:35px auto;
+ background:#ffffff12;
+ border:1px solid #ffffff30;
+ border-radius:22px;padding:24px;
+ backdrop-filter:blur(15px)
+}
+h1{font-size:23px;color:#ffe0ef;margin-top:0}
+p{line-height:2;color:#eee}
+label{display:block;margin:16px 0 7px;color:#ffe0ef}
+input,textarea{
+ width:100%;padding:12px;border-radius:10px;
+ border:1px solid #ffffff40;
+ background:#21172c;color:white;font:14px Tahoma
+}
+textarea{min-height:90px;resize:vertical}
+button{
+ border:0;border-radius:11px;padding:12px 18px;
+ margin:12px 5px 0 0;
+ background:linear-gradient(90deg,#ffb5d8,#d6c1ff);
+ color:#49284d;font-weight:bold;font: bold 14px Tahoma;
+ cursor:pointer
+}
+.secondary{background:#ffffff20;color:white;border:1px solid #ffffff40}
+.hidden{display:none!important}
+.status{
+ padding:12px;border-radius:10px;
+ background:#ffffff12;margin-top:15px;line-height:1.8
+}
+.hint{font-size:12px;color:#ddd}
+.top{
+ display:flex;justify-content:space-between;
+ align-items:center;gap:12px;flex-wrap:wrap
+}
 </style>
-</head><body><main class="wrap">
-<div class="top"><h1>🔐 پنل مدیریت سایت امیر</h1><a href="/" style="color:#ffd1e9">مشاهده سایت</a></div>
-<section id="loginBox"><p>برای مدیریت محتوای سایت با حساب مدیر وارد شو.</p>
-<label>ایمیل مدیر</label><input id="email" type="email" autocomplete="username" placeholder="ایمیل حساب Supabase">
-<label>رمز عبور</label><input id="password" type="password" autocomplete="current-password" placeholder="رمز عبور">
-<button id="loginBtn">ورود به پنل</button><div class="hint">اطلاعات ورود فقط برای Supabase ارسال می‌شود.</div></section>
-<section id="editor" class="hidden"><p>محتوای عمومی سایت را ویرایش کن. تغییرات پس از ذخیره برای همه بازدیدکنندگان نمایش داده می‌شود.</p>
-<label>عنوان صفحه اول</label><input id="intro_title">
-<label>متن صفحه اول</label><textarea id="intro_text"></textarea>
-<label>عنوان خوشامدگویی</label><input id="welcome_title">
-<label>متن خوشامدگویی</label><textarea id="welcome_text"></textarea>
-<label>عنوان دنیای ستاره‌ها</label><input id="stars_title">
-<label>متن دنیای ستاره‌ها</label><textarea id="stars_text"></textarea>
-<label>عنوان پیام</label><input id="message_title">
-<label>متن پیام</label><textarea id="message_text"></textarea>
-<label>پیام روی هدیه</label><input id="gift_message">
-<label>آیدی تلگرام (بدون @)</label><input id="telegram">
-<button id="saveBtn">ذخیره تغییرات در فضای ابری</button><button class="secondary" id="logoutBtn">خروج از حساب</button>
-</section><div id="status" class="status" role="status">در حال آماده‌سازی اتصال...</div>
+</head>
+
+<body>
+<main class="wrap">
+
+<div class="top">
+<h1>🔐 پنل مدیریت سایت امیر</h1>
+<a href="../" style="color:#ffd1e9">مشاهده سایت</a>
+</div>
+
+<section id="loginBox">
+<p>برای مدیریت محتوای سایت با حساب مدیر وارد شو.</p>
+
+<label>ایمیل مدیر</label>
+<input id="email" type="email" autocomplete="username"
+placeholder="ایمیل حساب Supabase">
+
+<label>رمز عبور</label>
+<input id="password" type="password"
+autocomplete="current-password" placeholder="رمز عبور">
+
+<button id="loginBtn">ورود به پنل</button>
+
+<div class="hint">
+اطلاعات ورود فقط برای Supabase ارسال می‌شود.
+</div>
+</section>
+
+<section id="editor" class="hidden">
+
+<p>محتوای عمومی سایت را ویرایش کن. تغییرات پس از ذخیره برای همه بازدیدکنندگان نمایش داده می‌شود.</p>
+
+<label>عنوان صفحه اول</label>
+<input id="intro_title">
+
+<label>متن صفحه اول</label>
+<textarea id="intro_text"></textarea>
+
+<label>عنوان خوشامدگویی</label>
+<input id="welcome_title">
+
+<label>متن خوشامدگویی</label>
+<textarea id="welcome_text"></textarea>
+
+<label>عنوان دنیای ستاره‌ها</label>
+<input id="stars_title">
+
+<label>متن دنیای ستاره‌ها</label>
+<textarea id="stars_text"></textarea>
+
+<label>عنوان پیام</label>
+<input id="message_title">
+
+<label>متن پیام</label>
+<textarea id="message_text"></textarea>
+
+<label>پیام روی هدیه</label>
+<input id="gift_message">
+
+<label>آیدی تلگرام (بدون @)</label>
+<input id="telegram">
+
+<button id="saveBtn">ذخیره تغییرات در فضای ابری</button>
+<button class="secondary" id="logoutBtn">خروج از حساب</button>
+
+</section>
+
+<div id="status" class="status" role="status">
+در حال آماده‌سازی اتصال...
+</div>
+
 </main>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="/js/config.js"></script><script src="/js/supabase-client.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../js/config.js"></script>
+<script src="../js/supabase-client.js"></script>
+
 <script>
-const $=id=>document.getElementById(id); const status=(m)=>$('status').textContent=m;
-const defaults={intro_title:'یه نامه مخصوص تو!',intro_text:'یه سورپرایز کوچولو دارم... نامه رو باز کن! 💗',welcome_title:'به دنیای کوچولوی من خوش اومدی!',welcome_text:'اینجا یه سورپرایز کوچولو برات آماده شده. امیدوارم از دیدنش لذت ببری.',stars_title:'دنیای ستاره‌ها',stars_text:'هر ستاره یه رویاست و هر نور یه ایده جدید. اینجا دنیای خیال و خلاقیته!',message_title:'یه پیام کوچولو!',message_text:'این صفحه رو با کلی ذوق و چند خط کد ساختم. امیدوارم لبخند زده باشی!',gift_message:'I LOVE YOU ❤️',telegram:'Amirx13892010'};
-function fill(v){const x={...defaults,...(v||{})};Object.keys(defaults).forEach(k=>$(k).value=x[k]??defaults[k]);}
-async function waitDb(){for(let i=0;i<50&&!window.db;i++)await new Promise(r=>setTimeout(r,100));return !!window.db;}
-async function loadEditor(){const {data,error}=await db.from('site_content').select('content_value').eq('content_key','main').maybeSingle();if(error)throw error;fill(data?.content_value);$('loginBox').classList.add('hidden');$('editor').classList.remove('hidden');status('وارد پنل مدیریت شدی.');}
-$('loginBtn').onclick=async()=>{try{if(!await waitDb())throw Error('تنظیمات Supabase کامل نیست؛ فایل js/config.js را بررسی کن.');const {error}=await db.auth.signInWithPassword({email:$('email').value.trim(),password:$('password').value});if(error)throw error;const {data:admin,error:rpcError}=await db.rpc('is_site_admin');if(rpcError)throw rpcError;if(!admin){await db.auth.signOut();throw Error('این حساب در فهرست مدیران سایت نیست.');}await loadEditor();}catch(e){status('خطا: '+(e.message||e));}};
-$('saveBtn').onclick=async()=>{try{const {data:admin,error:rpcError}=await db.rpc('is_site_admin');if(rpcError)throw rpcError;if(!admin)throw Error('دسترسی مدیر تأیید نشد.');const content={};Object.keys(defaults).forEach(k=>content[k]=$(k).value.trim());content.title='A Little Surprise';content.language='fa';content.theme='pink';content.maintenance=false;const {error}=await db.from('site_content').upsert({content_key:'main',content_value:content,updated_at:new Date().toISOString()},{onConflict:'content_key'});if(error)throw error;status('تغییرات با موفقیت در فضای ابری ذخیره شد.');}catch(e){status('خطا در ذخیره: '+(e.message||e));}};
-$('logoutBtn').onclick=async()=>{await db.auth.signOut();$('editor').classList.add('hidden');$('loginBox').classList.remove('hidden');status('از حساب خارج شدی.');};
-(async()=>{if(!await waitDb()){status('اتصال آماده نیست. مقادیر js/config.js را تنظیم کن.');return;}const {data:{session}}=await db.auth.getSession();if(session){const {data:admin}=await db.rpc('is_site_admin');if(admin){try{await loadEditor();}catch(e){status('خطا: '+e.message);}}}})();
-</script></body></html>
+const $ = id => document.getElementById(id);
+
+const status = message => {
+ $('status').textContent = message;
+};
+
+const defaults = {
+ intro_title:'یه نامه مخصوص تو!',
+ intro_text:'یه سورپرایز کوچولو دارم... نامه رو باز کن! 💗',
+ welcome_title:'به دنیای کوچولوی من خوش اومدی!',
+ welcome_text:'اینجا یه سورپرایز کوچولو برات آماده شده. امیدوارم از دیدنش لذت ببری.',
+ stars_title:'دنیای ستاره‌ها',
+ stars_text:'هر ستاره یه رویاست و هر نور یه ایده جدید. اینجا دنیای خیال و خلاقیته!',
+ message_title:'یه پیام کوچولو!',
+ message_text:'این صفحه رو با کلی ذوق و چند خط کد ساختم. امیدوارم لبخند زده باشی!',
+ gift_message:'I LOVE YOU ❤️',
+ telegram:'Amirx13892010'
+};
+
+function fill(values){
+ const data = {...defaults,...(values || {})};
+
+ Object.keys(defaults).forEach(key => {
+  $(key).value = data[key] ?? defaults[key];
+ });
+}
+
+async function waitDb(){
+ for(let i=0;i<50 && !window.db;i++){
+  await new Promise(resolve => setTimeout(resolve,100));
+ }
+ return !!window.db;
+}
+
+async function loadEditor(){
+ const {data,error} = await db
+  .from('site_content')
+  .select('content_value')
+  .eq('content_key','main')
+  .maybeSingle();
+
+ if(error) throw error;
+
+ fill(data?.content_value);
+
+ $('loginBox').classList.add('hidden');
+ $('editor').classList.remove('hidden');
+
+ status('وارد پنل مدیریت شدی.');
+}
+
+$('loginBtn').onclick = async () => {
+ try{
+  if(!await waitDb()){
+   throw Error('اتصال Supabase آماده نیست. فایل‌های config.js و supabase-client.js را بررسی کن.');
+  }
+
+  const {error} = await db.auth.signInWithPassword({
+   email:$('email').value.trim(),
+   password:$('password').value
+  });
+
+  if(error) throw error;
+
+  const {data:admin,error:rpcError} =
+   await db.rpc('is_site_admin');
+
+  if(rpcError) throw rpcError;
+
+  if(!admin){
+   await db.auth.signOut();
+   throw Error('این حساب در فهرست مدیران سایت نیست.');
+  }
+
+  await loadEditor();
+
+ }catch(error){
+  status('خطا: ' + (error.message || error));
+ }
+};
+
+$('saveBtn').onclick = async () => {
+ try{
+  const {data:admin,error:rpcError} =
+   await db.rpc('is_site_admin');
+
+  if(rpcError) throw rpcError;
+
+  if(!admin){
+   throw Error('دسترسی مدیر تأیید نشد.');
+  }
+
+  const content = {};
+
+  Object.keys(defaults).forEach(key => {
+   content[key] = $(key).value.trim();
+  });
+
+  content.title = 'A Little Surprise';
+  content.language = 'fa';
+  content.theme = 'pink';
+  content.maintenance = false;
+
+  const {error} = await db
+   .from('site_content')
+   .upsert({
+    content_key:'main',
+    content_value:content,
+    updated_at:new Date().toISOString()
+   },{onConflict:'content_key'});
+
+  if(error) throw error;
+
+  status('تغییرات با موفقیت در فضای ابری ذخیره شد.');
+
+ }catch(error){
+  status('خطا در ذخیره: ' + (error.message || error));
+ }
+};
+
+$('logoutBtn').onclick = async () => {
+ await db.auth.signOut();
+
+ $('editor').classList.add('hidden');
+ $('loginBox').classList.remove('hidden');
+
+ status('از حساب خارج شدی.');
+};
+
+(async()=>{
+ if(!await waitDb()){
+  status('اتصال آماده نیست. فایل js/config.js را بررسی کن.');
+  return;
+ }
+
+ const {data:{session}} = await db.auth.getSession();
+
+ if(session){
+  const {data:admin} = await db.rpc('is_site_admin');
+
+  if(admin){
+   try{
+    await loadEditor();
+   }catch(error){
+    status('خطا: ' + error.message);
+   }
+  }
+ }
+})();
+</script>
+
+</body>
+</html>
