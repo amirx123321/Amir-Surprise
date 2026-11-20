@@ -1,0 +1,904 @@
+
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#f9c6df">
+<title>A Little Surprise 💗</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+ --pink:#ffacd5;
+ --light:#ffe0ef;
+ --purple:#cbb5ff;
+ --dark:#392344;
+}
+
+body{
+ min-height:100vh;
+ font-family:Tahoma,sans-serif;
+ color:white;
+ background:linear-gradient(135deg,#392344,#754b79,#392d60);
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ padding:16px;
+ overflow-x:hidden;
+}
+
+#background{
+ position:fixed;
+ inset:0;
+ pointer-events:none;
+ overflow:hidden;
+ z-index:0;
+}
+
+.star{
+ position:absolute;
+ color:#fff;
+ animation:twinkle 2s infinite alternate;
+}
+
+.card{
+ width:100%;
+ max-width:450px;
+ min-height:570px;
+ padding:25px 20px;
+ border:1px solid #ffffff50;
+ border-radius:30px;
+ background:#ffffff18;
+ backdrop-filter:blur(18px);
+ box-shadow:0 20px 70px #170c2866;
+ position:relative;
+ z-index:2;
+ text-align:center;
+ display:flex;
+ flex-direction:column;
+ justify-content:center;
+}
+
+.progress{
+ display:flex;
+ justify-content:center;
+ gap:7px;
+ flex-wrap:wrap;
+ margin-bottom:28px;
+}
+
+.dot{
+ width:8px;height:8px;
+ border-radius:10px;
+ background:#ffffff50;
+ transition:.3s;
+}
+
+.dot.active{
+ width:23px;
+ background:var(--pink);
+ box-shadow:0 0 12px var(--pink);
+}
+
+.screen{
+ display:none;
+ animation:show .6s ease;
+}
+
+.screen.active{display:block}
+
+h1{
+ color:#ffe0ef;
+ font-size:25px;
+ margin-bottom:16px;
+}
+
+h2{
+ color:#ffd1e9;
+ margin:12px 0;
+}
+
+p{
+ font-size:14px;
+ line-height:2.2;
+ color:#fff;
+ margin:12px 0;
+}
+
+.emoji{
+ font-size:65px;
+ margin-bottom:18px;
+ animation:float 2.5s infinite;
+}
+
+button{
+ width:100%;
+ max-width:290px;
+ padding:15px;
+ margin:9px auto 0;
+ border:0;
+ border-radius:16px;
+ background:linear-gradient(90deg,#ffb5d8,#d6c1ff);
+ color:#49284d;
+ font-size:15px;
+ font-weight:bold;
+ font-family:Tahoma;
+ cursor:pointer;
+ transition:.3s;
+}
+
+button:active{transform:scale(.94)}
+
+.secondary{
+ background:#ffffff18;
+ color:white;
+ border:1px solid #ffffff45;
+}
+
+.telegram{
+ display:block;
+ max-width:290px;
+ margin:12px auto;
+ padding:15px;
+ border-radius:15px;
+ background:#269ed4;
+ color:white;
+ text-decoration:none;
+ font-weight:bold;
+}
+
+.username{
+ direction:ltr;
+ display:inline-block;
+ padding:13px 20px;
+ border:1px solid #ffffff55;
+ border-radius:14px;
+ background:#ffffff18;
+ color:#ffe0ef;
+ font-size:19px;
+ margin:12px;
+}
+
+.letter{
+ width:160px;
+ height:110px;
+ position:relative;
+ margin:35px auto;
+ cursor:pointer;
+}
+
+.envelope{
+ position:absolute;
+ inset:0;
+ background:#f9b3d4;
+ border-radius:8px;
+}
+
+.envelope:before{
+ content:"";
+ position:absolute;
+ top:0;
+ left:0;
+ border-left:80px solid transparent;
+ border-right:80px solid transparent;
+ border-top:65px solid #ed91bd;
+ transform-origin:top;
+ transition:.7s;
+ z-index:3;
+}
+
+.envelope:after{
+ content:"";
+ position:absolute;
+ bottom:0;
+ left:0;
+ border-left:80px solid transparent;
+ border-right:80px solid transparent;
+ border-bottom:65px solid #ffdaeb;
+}
+
+.paper{
+ position:absolute;
+ top:10px;
+ left:15px;
+ width:130px;
+ height:85px;
+ background:#fff4fa;
+ color:#d66c9f;
+ border-radius:5px;
+ display:grid;
+ place-items:center;
+ font-size:30px;
+ transition:.7s;
+}
+
+.letter.open .envelope:before{
+ transform:rotateX(180deg);
+}
+
+.letter.open .paper{
+ transform:translateY(-65px);
+}
+
+.gallery{
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:10px;
+ margin:18px 0;
+}
+
+.interest{
+ padding:18px 7px;
+ background:#ffffff15;
+ border:1px solid #ffffff35;
+ border-radius:17px;
+}
+
+.interest span{
+ display:block;
+ font-size:35px;
+ margin-bottom:9px;
+}
+
+.interest strong{
+ font-size:13px;
+ color:#ffe0ef;
+}
+
+.interest small{
+ display:block;
+ font-size:10px;
+ color:#eee;
+ margin-top:7px;
+ line-height:1.8;
+}
+
+/* Terminal */
+
+.terminal{
+ direction:ltr;
+ text-align:left;
+ background:#21172c;
+ border:1px solid #e8b7df;
+ border-radius:15px;
+ padding:17px;
+ min-height:190px;
+ margin:20px 0;
+ color:#f9bde0;
+ font-family:monospace;
+ font-size:12px;
+ line-height:2.1;
+ overflow-wrap:anywhere;
+}
+
+.terminal-title{
+ color:#b9f4ce;
+ margin-bottom:12px;
+}
+
+/* Gift */
+
+.gift-area{
+ position:relative;
+ height:240px;
+ display:grid;
+ place-items:center;
+}
+
+.gift{
+ position:relative;
+ width:160px;
+ height:120px;
+ cursor:pointer;
+ transition:.5s;
+}
+
+.gift-box{
+ position:absolute;
+ bottom:0;
+ left:0;
+ width:160px;
+ height:95px;
+ background:linear-gradient(135deg,#ff9ecb,#e96fa9);
+ border-radius:8px;
+ box-shadow:0 12px 25px #0004;
+}
+
+.gift-box:before{
+ content:"";
+ position:absolute;
+ left:65px;
+ width:30px;
+ height:100%;
+ background:#ffe0a9;
+}
+
+.gift-lid{
+ position:absolute;
+ top:12px;
+ left:-8px;
+ width:176px;
+ height:30px;
+ background:#ffadd4;
+ border-radius:7px;
+ z-index:3;
+ transition:1s;
+ transform-origin:left bottom;
+}
+
+.gift-lid:after{
+ content:"";
+ position:absolute;
+ width:35px;
+ height:25px;
+ border:8px solid #ffe3a8;
+ border-radius:50% 50% 0 50%;
+ left:60px;
+ top:-22px;
+}
+
+.gift.open .gift-lid{
+ transform:translateY(-90px) rotate(-20deg);
+}
+
+.gift.open{
+ animation:giftPop .7s;
+}
+
+.gift-message{
+ position:absolute;
+ top:0;
+ left:0;
+ right:0;
+ opacity:0;
+ transform:scale(.3);
+ transition:1s;
+ pointer-events:none;
+ z-index:4;
+ color:#fff;
+ font-size:29px;
+ font-weight:bold;
+ text-shadow:0 0 10px #ff8bc4,0 0 25px #ff5ca8;
+}
+
+.gift.open .gift-message{
+ opacity:1;
+ transform:scale(1);
+ top:-25px;
+}
+
+.gift-hint{
+ font-size:12px;
+ color:#ffd9eb;
+ margin-top:8px;
+}
+
+.heart{
+ position:fixed;
+ bottom:-40px;
+ pointer-events:none;
+ z-index:10;
+ animation:heartUp 5s linear forwards;
+}
+
+.burst{
+ position:fixed;
+ pointer-events:none;
+ z-index:11;
+ font-size:25px;
+ animation:burst 1.3s ease-out forwards;
+}
+
+.small{
+ font-size:11px;
+ color:#e8cce0;
+}
+
+@keyframes show{
+ from{opacity:0;transform:translateY(20px)}
+ to{opacity:1;transform:translateY(0)}
+}
+
+@keyframes float{
+ 50%{transform:translateY(-12px)}
+}
+
+@keyframes twinkle{
+ from{opacity:.2;transform:scale(.7)}
+ to{opacity:1;transform:scale(1.3)}
+}
+
+@keyframes heartUp{
+ to{transform:translateY(-110vh) rotate(360deg);opacity:0}
+}
+
+@keyframes burst{
+ to{
+  transform:translate(var(--x),var(--y)) scale(.2) rotate(180deg);
+  opacity:0;
+ }
+}
+
+@keyframes giftPop{
+ 50%{transform:scale(1.1)}
+}
+
+@media(max-width:380px){
+ .card{padding:20px 13px;min-height:530px}
+ h1{font-size:22px}
+ .emoji{font-size:55px}
+}
+</style>
+</head>
+
+<body>
+
+<div id="background"></div>
+
+<main class="card">
+
+<div class="progress" id="progress"></div>
+
+<!-- 1: Letter -->
+<section class="screen active">
+ <div class="emoji">💌</div>
+ <h1>یه نامه مخصوص تو!</h1>
+ <p>یه سورپرایز کوچولو دارم... نامه رو باز کن! 💗</p>
+
+ <div class="letter" id="letter" onclick="openLetter()">
+  <div class="paper">💗</div>
+  <div class="envelope"></div>
+ </div>
+
+ <button id="openBtn" onclick="openLetter()">باز کردن نامه 🎀</button>
+ <button id="continue1" style="display:none" onclick="next(1)">ادامه بده ✨</button>
+</section>
+
+<!-- 2 -->
+<section class="screen">
+ <div class="emoji">🌸</div>
+ <h1>به دنیای کوچولوی من خوش اومدی!</h1>
+ <p>
+ اینجا یه سورپرایز کوچولو برات آماده شده.
+ امیدوارم از دیدنش لذت ببری.
+ </p>
+ <button onclick="next(2)">بریم ادامه! 💕</button>
+ <button class="secondary" onclick="next(0)">برگشت</button>
+</section>
+
+<!-- 3 -->
+<section class="screen">
+ <div class="emoji">🌌</div>
+ <h1>دنیای ستاره‌ها</h1>
+ <p>
+ هر ستاره یه رویاست و هر نور یه ایده جدید.
+ اینجا دنیای خیال و خلاقیته!
+ </p>
+ <button onclick="shootingStars()">بارش شهابی 🌠</button>
+ <button onclick="next(3)">ادامه سورپرایز 💗</button>
+ <button class="secondary" onclick="next(1)">برگشت</button>
+</section>
+
+<!-- 4 -->
+<section class="screen">
+ <div class="emoji">💖</div>
+ <h1>یه پیام کوچولو!</h1>
+ <p>
+ این صفحه رو با کلی ذوق و چند خط کد ساختم.
+ امیدوارم لبخند زده باشی!
+ </p>
+ <h2>حالا وقت آشناییه! 👀</h2>
+ <button onclick="next(4)">سازنده رو بشناس!</button>
+ <button class="secondary" onclick="next(2)">برگشت</button>
+</section>
+
+<!-- 5 -->
+<section class="screen">
+ <div class="emoji">👋</div>
+ <h1>سلام! من امیرم</h1>
+ <h2>۱۶ سالمه 💻</h2>
+ <p>
+ برنامه‌نویسم و عاشق تکنولوژی‌ام.
+ دوست دارم ایده‌های جدید بسازم و چیزهای جالب خلق کنم.
+ </p>
+ <button onclick="next(5)">علایقم رو ببین! 🚀</button>
+ <button class="secondary" onclick="next(3)">برگشت</button>
+</section>
+
+<!-- 6 -->
+<section class="screen">
+ <div class="emoji">🎀</div>
+ <h1>علایق من</h1>
+ <p>چیزهایی که دوست دارم:</p>
+
+ <div class="gallery">
+  <div class="interest">
+   <span>💻</span>
+   <strong>برنامه‌نویسی</strong>
+   <small>ساخت سایت و نرم‌افزار</small>
+  </div>
+  <div class="interest">
+   <span>🤖</span>
+   <strong>رباتیک</strong>
+   <small>ساخت ربات‌های هوشمند</small>
+  </div>
+  <div class="interest">
+   <span>🧠</span>
+   <strong>هوش مصنوعی</strong>
+   <small>ایده‌های هوشمند</small>
+  </div>
+  <div class="interest">
+   <span>⚡</span>
+   <strong>الکترونیک</strong>
+   <small>مدار و خلاقیت</small>
+  </div>
+ </div>
+
+ <button onclick="next(6)">پروژه‌هام رو ببین! ✨</button>
+ <button class="secondary" onclick="next(4)">برگشت</button>
+</section>
+
+<!-- 7: Projects -->
+<section class="screen">
+ <div class="emoji">🚀</div>
+ <h1>پروژه‌های امیر</h1>
+ <p>چندتا از ایده‌ها و پروژه‌هایی که روشون کار می‌کنم:</p>
+
+ <div class="gallery">
+  <div class="interest">
+   <span>🧠</span>
+   <strong>Jarvis</strong>
+   <small>دستیار هوشمند شخصی</small>
+  </div>
+  <div class="interest">
+   <span>🦾</span>
+   <strong>Jarvis pet 🦒🦒🦒</strong>
+   <small>یه روبات کوچیک و بامزه ی دوست داشتنی</small>
+  </div>
+  <div class="interest">
+   <span>🌐</span>
+   <strong>طراحی وب</strong>
+   <small>ساخت صفحات اینترنتی</small>
+  </div>
+  <div class="interest">
+   <span>🔌</span>
+   <strong>الکترونیک</strong>
+   <small>آزمایش و ساخت مدار</small>
+  </div>
+ </div>
+
+ <p class="small">بعضی از این موارد ایده‌ها و پروژه‌های در حال توسعه هستند.</p>
+ <button onclick="next(7)">یه راز دارم! 🤫</button>
+ <button class="secondary" onclick="next(5)">برگشت</button>
+</section>
+
+<!-- 8: Terminal -->
+<section class="screen">
+ <div class="emoji">💻</div>
+ <h1>ترمینال مخفی امیر</h1>
+ <p>یه گوشه از دنیای برنامه‌نویسی!</p>
+
+ <div class="terminal">
+  <div class="terminal-title">● ● ● &nbsp; AMIR TERMINAL</div>
+  <div id="terminalText"></div>
+  <span style="animation:twinkle 1s infinite">█</span>
+ </div>
+
+ <button onclick="runTerminal()">اجرای دوباره دستور ⚡</button>
+ <button onclick="next(8)"> می خوای بدونی خروجیش چیه رو این کلیک کن 🎁</button>
+ <button class="secondary" onclick="next(6)">برگشت</button>
+</section>
+
+<!-- 9: Gift -->
+<section class="screen">
+ <div class="emoji">🎁</div>
+ <h1>یه هدیه مخصوص تو!</h1>
+ <p>روی جعبه کلیک کن تا سورپرایز رو ببینی.</p>
+
+ <div class="gift-area">
+  <div class="gift" id="gift" onclick="openGift()">
+   <div class="gift-message">I LOVE YOU ❤️</div>
+   <div class="gift-box"></div>
+   <div class="gift-lid"></div>
+  </div>
+ </div>
+
+ <p class="gift-hint" id="giftHint">برای باز کردن هدیه لمس کن 💗</p>
+
+ <button onclick="openGift()">باز کردن هدیه 🎀</button>
+ <button onclick="next(9)">مرحله آخر 💌</button>
+ <button class="secondary" onclick="next(7)">برگشت</button>
+</section>
+
+<!-- 10: Telegram -->
+<section class="screen">
+ <div class="emoji">💬</div>
+ <h1>دوست داشتی بیشتر آشنا بشیم؟</h1>
+
+ <p>
+ اگه دوست داشتی، اینم آیدی من تو تلگرامه.
+ بهم پیام بده تا بیشتر با هم آشنا بشیم. 😊
+ </p>
+
+ <div class="username">@Amirx13892010</div>
+
+ <a class="telegram"
+ href="https://t.me/Amirx13892010"
+ target="_blank"
+ rel="noopener noreferrer">
+ پیام دادن در تلگرام 💙
+ </a>
+
+ <button class="secondary" onclick="copyID()">کپی آیدی 📋</button>
+ <p id="copyStatus" class="small"></p>
+
+ <p>ممنون که تا آخر همراه بودی! 💗</p>
+
+ <button class="secondary" onclick="restart()">شروع دوباره 🔄</button>
+ <button class="secondary" onclick="next(8)">برگشت</button>
+</section>
+
+</main>
+
+<script>
+
+const screens=document.querySelectorAll(".screen");
+const progress=document.getElementById("progress");
+
+let current=0;
+let letterOpened=false;
+let giftOpened=false;
+
+for(let i=0;i<screens.length;i++){
+ const dot=document.createElement("span");
+ dot.className="dot"+(i===0?" active":"");
+ progress.appendChild(dot);
+}
+
+const dots=progress.querySelectorAll(".dot");
+
+function next(n){
+ if(n<0||n>=screens.length)return;
+
+ screens[current].classList.remove("active");
+ current=n;
+ screens[current].classList.add("active");
+
+ dots.forEach((d,i)=>{
+  d.classList.toggle("active",i===current);
+ });
+
+ if(n===2||n===8)hearts();
+
+ if(n===7)runTerminal();
+
+ window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function openLetter(){
+ if(letterOpened)return;
+
+ letterOpened=true;
+ document.getElementById("letter").classList.add("open");
+ document.getElementById("openBtn").style.display="none";
+
+ setTimeout(()=>{
+  document.getElementById("continue1").style.display="block";
+  hearts();
+ },900);
+}
+
+function hearts(){
+ const emojis=["💗","💕","❤️","✨","🌸","💖"];
+
+ for(let i=0;i<22;i++){
+  const h=document.createElement("div");
+  h.className="heart";
+  h.textContent=emojis[Math.floor(Math.random()*emojis.length)];
+  h.style.left=Math.random()*100+"%";
+  h.style.animationDelay=Math.random()*2+"s";
+  h.style.fontSize=(18+Math.random()*23)+"px";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),6500);
+ }
+}
+
+function shootingStars(){
+ const area=document.getElementById("background");
+
+ for(let i=0;i<12;i++){
+  const s=document.createElement("div");
+  s.className="star";
+  s.textContent="✦";
+  s.style.left=Math.random()*100+"%";
+  s.style.top=Math.random()*70+"%";
+  s.style.fontSize="25px";
+  area.appendChild(s);
+  setTimeout(()=>s.remove(),2500);
+ }
+}
+
+function runTerminal(){
+ const lines=[
+    "a = I love ",
+    "b = you",
+    "print(a + b)"
+ ];
+
+ const el=document.getElementById("terminalText");
+ el.innerHTML="";
+ let line=0;
+
+ function writeLine(){
+  if(line>=lines.length)return;
+
+  const div=document.createElement("div");
+  div.textContent=lines[line];
+  el.appendChild(div);
+  line++;
+
+  setTimeout(writeLine,650);
+ }
+
+ writeLine();
+}
+
+function openGift(){
+ if(giftOpened)return;
+
+ giftOpened=true;
+
+ document.getElementById("gift").classList.add("open");
+ document.getElementById("giftHint").textContent="I LOVE YOU ❤️";
+
+ hearts();
+
+ // انفجار قلب ها از مرکز جعبه
+ const rect=document.getElementById("gift").getBoundingClientRect();
+ const cx=rect.left+rect.width/2;
+ const cy=rect.top+rect.height/2;
+
+ const icons=["❤️","💗","💕","💖","✨","🌸"];
+
+ for(let i=0;i<32;i++){
+  const b=document.createElement("div");
+  b.className="burst";
+  b.textContent=icons[i%icons.length];
+  b.style.left=cx+"px";
+  b.style.top=cy+"px";
+
+  const angle=(Math.PI*2*i)/32;
+  const distance=90+Math.random()*100;
+
+  b.style.setProperty("--x",Math.cos(angle)*distance+"px");
+  b.style.setProperty("--y",Math.sin(angle)*distance+"px");
+
+  document.body.appendChild(b);
+  setTimeout(()=>b.remove(),1500);
+ }
+}
+
+function copyID(){
+ const id="@Amirx13892010";
+ const status=document.getElementById("copyStatus");
+
+ if(navigator.clipboard&&window.isSecureContext){
+  navigator.clipboard.writeText(id)
+  .then(()=>status.textContent="آیدی کپی شد! ❤️")
+  .catch(()=>status.textContent="آیدی: "+id);
+ }else{
+  status.textContent="آیدی: "+id;
+ }
+}
+
+function restart(){
+ letterOpened=false;
+ giftOpened=false;
+
+ document.getElementById("letter").classList.remove("open");
+ document.getElementById("gift").classList.remove("open");
+
+ document.getElementById("openBtn").style.display="block";
+ document.getElementById("continue1").style.display="none";
+
+ document.getElementById("giftHint").textContent="برای باز کردن هدیه لمس کن 💗";
+ document.getElementById("copyStatus").textContent="";
+
+ next(0);
+}
+
+// ستاره های پس زمینه
+const bg=document.getElementById("background");
+
+for(let i=0;i<70;i++){
+ const s=document.createElement("span");
+ s.className="star";
+ s.textContent="✦";
+ s.style.left=Math.random()*100+"%";
+ s.style.top=Math.random()*100+"%";
+ s.style.fontSize=(5+Math.random()*10)+"px";
+ s.style.animationDelay=Math.random()*3+"s";
+ bg.appendChild(s);
+}
+
+// افکت لمس و موس
+let lastEffect=0;
+
+function makeSparkle(x,y){
+ const now=Date.now();
+ if(now-lastEffect<45)return;
+ lastEffect=now;
+
+ const s=document.createElement("div");
+ s.className="heart";
+ s.textContent=["✨","💗","🌸"][Math.floor(Math.random()*3)];
+ s.style.left=x+"px";
+ s.style.top=y+"px";
+ s.style.bottom="auto";
+ s.style.animation="burst 1s forwards";
+ s.style.setProperty("--x",(Math.random()*70-35)+"px");
+ s.style.setProperty("--y",(Math.random()*70-35)+"px");
+
+ document.body.appendChild(s);
+ setTimeout(()=>s.remove(),1100);
+}
+
+document.addEventListener("pointermove",e=>{
+ if(e.pointerType==="mouse"){
+  makeSparkle(e.clientX,e.clientY);
+ }
+});
+
+document.addEventListener("pointerdown",e=>{
+ makeSparkle(e.clientX,e.clientY);
+});
+
+</script>
+
+
+<!-- Supabase cloud connection -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/js/config.js"></script>
+<script src="/js/supabase-client.js"></script>
+<script>
+// نمایش محتوای قابل ویرایش که از فضای ابری دریافت می‌شود
+window.applyCloudContent = function(data) {
+  if (!data) return;
+  const screens = document.querySelectorAll('.screen');
+  const put = (selector, value) => { const el = document.querySelector(selector); if (el && typeof value === 'string' && value.length) el.textContent = value; };
+  put('.screen:nth-of-type(1) h1', data.intro_title);
+  put('.screen:nth-of-type(1) p', data.intro_text);
+  put('.screen:nth-of-type(2) h1', data.welcome_title);
+  put('.screen:nth-of-type(2) p', data.welcome_text);
+  put('.screen:nth-of-type(3) h1', data.stars_title);
+  put('.screen:nth-of-type(3) p', data.stars_text);
+  put('.screen:nth-of-type(4) h1', data.message_title);
+  put('.screen:nth-of-type(4) p', data.message_text);
+  put('.gift-message', data.gift_message);
+  if (typeof data.telegram === 'string' && data.telegram.trim()) {
+    const username = data.telegram.replace(/^@/, '').trim();
+    const el = document.querySelector('.username');
+    const link = document.querySelector('.telegram');
+    if (el) el.textContent = '@' + username;
+    if (link) link.href = 'https://t.me/' + encodeURIComponent(username);
+  }
+};
+// فراهم کردن دسترسی خواندن وضعیت فعلی برای ذخیره‌ساز ابری
+Object.defineProperties(window, {
+  current: { configurable: true, get: () => current },
+  letterOpened: { configurable: true, get: () => letterOpened, set: v => { letterOpened = !!v; } },
+  giftOpened: { configurable: true, get: () => giftOpened, set: v => { giftOpened = !!v; } }
+});
+const originalNextForCloud = window.next;
+window.next = function(n) { originalNextForCloud(n); window.saveVisitorProgress?.(); };
+const originalOpenLetterForCloud = window.openLetter;
+window.openLetter = function() { originalOpenLetterForCloud(); setTimeout(() => window.saveVisitorProgress?.(), 950); };
+const originalOpenGiftForCloud = window.openGift;
+window.openGift = function() { originalOpenGiftForCloud(); window.saveVisitorProgress?.(); };
+</script>
+<script src="/js/cloud.js"></script>
+
+</body>
+</html>
